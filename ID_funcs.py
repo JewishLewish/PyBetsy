@@ -18,9 +18,13 @@ class PylintWarning:
 
         #For Users
         if self.line != None and self.endLine != None:
+            #the line in the list where the code is bad
             self.target_line = self.line-1
+            #the line in the list where the bad code ends
             self.target_line_end = self.endLine-1
+            #Starting Character of the bad code
             self.start_char = self.column
+            #Ending Character of the bad code
             self.end_char = self.endColumn
     
     def __str__(self):
