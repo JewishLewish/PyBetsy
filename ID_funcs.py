@@ -3,6 +3,7 @@ class PylintWarning:
     Pylint Warnings
     """
     def __init__(self, data):
+        #From Pylint
         self.type = data.get("type")
         self.module = data.get("module")
         self.obj = data.get("obj")
@@ -14,6 +15,13 @@ class PylintWarning:
         self.symbol = data.get("symbol")
         self.message: str or list(str) = data.get("message")
         self.message_id: str or list(str) = data.get("message-id")
+
+        #For Users
+        if self.line != None and self.endLine != None:
+            self.target_line = self.line-1
+            self.target_line_end = self.endLine-1
+            self.start_char = self.column
+            self.end_char = self.endColumn
     
     def __str__(self):
         return (
@@ -48,25 +56,25 @@ class Conventions():
 
     def C0103(self, details:PylintWarning):
         # function to UPPER_CASE
-        self.code[details.line-1] =  self.code[details.line-1][:-1] + "     #Constant name \"test\" doesn't conform to UPPER_CASE naming style" + self.code[details.line-1][-1]
+        self.code[details.target_line] =  self.code[details.target_line][:-1] + "     #Constant name \"test\" doesn't conform to UPPER_CASE naming style" + self.code[details.target_line][-1]
 
 
 
 class Warnings():
     def W0611(self, details: PylintWarning):
         #Unused Import
-        self.code[details.line-1] = ""
+        self.code[details.target_line] = ""
 
 
 class Errors():
     def E0001(self, details: PylintWarning):
-        self.code[details.line-1] = self.code[details.line-1] + "   # {details.message}"
+        self.code[details.target_line] = self.code[details.target_line] + "   # {details.message}"
 
     def E0602(self, details: PylintWarning):
-        new_string = self.code[details.line-1]
+        new_string = self.code[details.target_line]
         new_string = new_string[:details.column] + '...' + new_string[details.endColumn:]
         new_string = addCommentToEnd(new_string, details.message)
-        self.code[details.line-1] = new_string
+        self.code[details.target_line] = new_string
 
 
 class Solutions(Warnings, Conventions, Errors):
