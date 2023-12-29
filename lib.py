@@ -46,6 +46,7 @@ def read_content(target_file) -> str:
 def read_python_content(target_file) -> str:
     with open(target_file, "r") as f: return f.readlines()
 
+
 if __name__ == "__main__":
     target_file = "main.py"
     run_pylint([target_file, "--output-format=json:review.json"])

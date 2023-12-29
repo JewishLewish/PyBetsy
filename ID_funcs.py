@@ -32,6 +32,7 @@ class PylintWarning:
 
 class Conventions():
     def C0304(self, details: PylintWarning):
+        #Newline doesn't end the code
         self.code.append('')
 
     def C0114(self, details: PylintWarning):
@@ -46,7 +47,8 @@ class Conventions():
         pass
 
     def C0103(self, details:PylintWarning):
-        print(details)
+        # function to UPPER_CASE
+        self.code[details.line-1] =  self.code[details.line-1][:-1] + "     #Constant name \"test\" doesn't conform to UPPER_CASE naming style" + self.code[details.line-1][-1]
 
 
 
