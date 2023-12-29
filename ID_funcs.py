@@ -30,11 +30,6 @@ class PylintWarning:
             f"Message ID: {self.message_id}"
         )
 
-class Warnings():
-    def W0611(self, details: PylintWarning):
-        #Unused Import
-        self.code[details.line-1] = ""
-
 class Conventions():
     def C0304(self, details: PylintWarning):
         self.code.append('')
@@ -52,6 +47,14 @@ class Conventions():
 
     def C0103(self, details:PylintWarning):
         print(details)
+
+
+
+class Warnings():
+    def W0611(self, details: PylintWarning):
+        #Unused Import
+        self.code[details.line-1] = ""
+
 
 class Errors():
     def E0001(self, details: PylintWarning):
