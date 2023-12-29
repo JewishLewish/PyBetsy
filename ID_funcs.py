@@ -63,11 +63,14 @@ class Conventions():
         self.code[details.target_line] =  self.code[details.target_line][:-1] + "     #Constant name \"test\" doesn't conform to UPPER_CASE naming style" + self.code[details.target_line][-1]
 
 
-
 class Warnings():
     def W0611(self, details: PylintWarning):
         #Unused Import
         self.code[details.target_line] = ""
+    
+    def W0622(self, details: PylintWarning):
+        self.code[details.target_line] = addCommentToEnd(self.code[details.target_line], details.message)
+        pass
 
 
 class Errors():
